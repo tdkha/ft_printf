@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"MAIN.C": "cpp",
+		"libftprintf.h": "c",
+		"ft_printf.h": "c",
+		"unistd.h": "c",
+		"libft.h": "c",
+		"limits.h": "c"
+	}
+}

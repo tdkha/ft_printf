@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_str_flags_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:22:58 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/06 15:21:01 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/07 08:18:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,18 @@ static int	ft_print_string(char *str, t_flag_format flags)
 	return (count);
 }
 
-int ft_print_str_flags_bonus(char *str, t_flag_format flags)
+int	ft_print_str_flags_bonus(char *str, t_flag_format flags)
 {
-    int count;
-	
-    count = 0;
+	int	count;
+
+	count = 0;
 	if (str == NULL)
 	{
 		str = "(null)";
 		flags.precision = ft_strlen(str);
 	}
-	// trim precision
 	if (flags.precision >= 0 && flags.precision > ft_strlen(str))
 		flags.precision = ft_strlen(str);
-	// padding left
 	if (flags.left == 1)
 		count += ft_print_string(str, flags);
 	if (flags.precision >= 0)
@@ -77,3 +75,8 @@ int ft_print_str_flags_bonus(char *str, t_flag_format flags)
 	return (count);
 }
 
+	// printf("-----------------------------------\n");
+	// printf("Left: %d\n", flags.left);
+	// printf("Width: %d\n", flags.width);
+	// printf("Precesion: %d\n", flags.precision);
+	// printf("-----------------------------------\n");

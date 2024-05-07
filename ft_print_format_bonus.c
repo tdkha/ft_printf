@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_format_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:03:56 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/03 16:57:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/07 07:59:17 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	ft_parse_format_specifier(t_flag_format flags, va_list ap,
 	if (specifier == 'c')
 		return (ft_print_char_flags_bonus(va_arg(ap, int), flags));
 	else if (specifier == 's')
-		return (ft_print_str(va_arg(ap, char *)));
+		return (ft_print_str_flags_bonus(va_arg(ap, char *), flags));
 	else if (specifier == 'p')
 		return (ft_print_ptr(va_arg(ap, unsigned long long)));
 	else if (specifier == 'u')

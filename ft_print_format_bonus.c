@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_format_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:03:56 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/07 07:59:17 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/13 23:26:53 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-static int	ft_parse_format_specifier(t_flag_format flags, va_list ap,
-	char *lower_base, char *upper_base)
+static int	ft_parse_format_specifier(t_flag_format f, va_list ap,
+	char *l, char *u)
 {
 	char	specifier;
 
-	specifier = flags.specifier;
+	specifier = f.specifier;
 	if (specifier == 'c')
-		return (ft_print_char_flags_bonus(va_arg(ap, int), flags));
+		return (ft_print_char_flags_bonus(va_arg(ap, int), f));
 	else if (specifier == 's')
-		return (ft_print_str_flags_bonus(va_arg(ap, char *), flags));
+		return (ft_print_str_flags_bonus(va_arg(ap, char *), f));
 	else if (specifier == 'p')
-		return (ft_print_ptr(va_arg(ap, unsigned long long)));
+		return (ft_print_ptr_flags_bonus(va_arg(ap, unsigned long), f));
 	else if (specifier == 'u')
-		return (ft_print_num_base(va_arg(ap, unsigned int), 10, lower_base));
+		return (ft_print_num_base_bonus(va_arg(ap, unsigned int), 10, l, f));
 	else if (specifier == 'd' || specifier == 'i')
-		return (ft_print_num_base(va_arg(ap, int), 10, lower_base));
+		return (ft_print_num_base_bonus(va_arg(ap, int), 10, l, f));
 	else if (specifier == 'x')
-		return (ft_print_num_base(va_arg(ap, unsigned int), 16, lower_base));
+		return (ft_print_num_base_bonus(va_arg(ap, unsigned int), 16, l, f));
 	else if (specifier == 'X')
-		return (ft_print_num_base(va_arg(ap, unsigned int), 16, upper_base));
+		return (ft_print_num_base_bonus(va_arg(ap, unsigned int), 16, u, f));
 	else if (specifier == '%')
 		return (ft_check_write_return_count('%'));
 	else

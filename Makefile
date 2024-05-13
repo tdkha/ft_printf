@@ -35,9 +35,10 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_printf_bonus.c \
 					./ft_print_char.c \
 					./ft_print_str.c \
-					./ft_print_str_flags_bonus.c \
-					./ft_print_ptr.c \
 					./ft_print_num_base.c \
+					./ft_print_str_flags_bonus.c \
+					./ft_print_ptr_flags_bonus.c \
+					./ft_print_num_base_bonus.c \
 					./ft_check_write_return_count.c
 
 OBJ_FILES		= $(SRC_FILES:.c=.o)
@@ -50,7 +51,7 @@ LIBFT_DIR = ./libft/
 LIBFT = libft.a
 LIBFT_AR = $(addprefix $(LIBFT_DIR), $(LIBFT))
 #----------------------------------------------------------------------------
-#								TARGETS $(AR) $(NAME) $(OBJ_FILES) #$(LIB) $(NAME)
+#					TARGETS $(AR) $(NAME) $(OBJ_FILES) #$(LIB) $(NAME)
 #----------------------------------------------------------------------------
 
 

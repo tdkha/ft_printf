@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_padding_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:56:15 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/07 08:19:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/12 14:42:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,3 @@ int	ft_padding_bonus(int max_width, int len, int has_zero_pad)
 	}
 	return (count);
 }
-
-//printf("Padding is: %d\n", iteration);

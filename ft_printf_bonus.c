@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
+/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:59:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/07 08:18:11 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/12 17:24:43 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		count;
-	
+
 	if (!format || !*format)
 		return (0);
 	va_start(ap, format);

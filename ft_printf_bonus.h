@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/06 12:37:46 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/13 23:24:20 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 # include <stdarg.h>
 # include <limits.h>
 # include <stdio.h> 
+
+# if defined (__linux__)
+#  define PTR_NULL "(nil)"
+# elif defined (__APPLE__)
+#  define PTR_NULL "0x0"
+# endif
 
 typedef struct s_flag_format
 {
@@ -37,13 +43,20 @@ typedef struct s_flag_format
 /*								FT_PRINT_PTR.C								*/
 /*-------------------------------------------------------------------------*/
 
-int				ft_print_ptr(unsigned long long ptr);
+int				ft_print_ptr_flags_bonus(unsigned long p, t_flag_format flags);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_NUM_BASE.C							*/
 /*-------------------------------------------------------------------------*/
 
 int				ft_print_num_base(long long n, int base, char *lst_base);
+int				ft_print_num_base_bonus
+					(
+					long long n,
+					int base,
+					char *lst_base,
+					t_flag_format flags
+					);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_CHAR.C								*/

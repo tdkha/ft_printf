@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:22:58 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/13 23:32:08 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/14 11:40:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	ft_print_string(char *str, t_flag_format flags)
 	count = 0;
 	if (flags.precision >= 0)
 	{
-		count += ft_padding_bonus(flags.precision, ft_strlen(str), 0);
+		count += ft_pad_bonus(flags.precision, ft_strlen(str), 0);
 		count += ft_print_s_pre(str, flags.precision);
 	}
 	else
@@ -76,7 +76,7 @@ int	ft_print_str_flags_bonus(char *str, t_flag_format flags)
 	count = 0;
 	if (str == NULL && flags.precision >= 0 && flags.precision < 6)
 	{
-		count += ft_padding_bonus(flags.width, 0, 0);
+		count += ft_pad_bonus(flags.width, 0, 0);
 		return (count);
 	}
 	if (str == NULL)
@@ -86,9 +86,9 @@ int	ft_print_str_flags_bonus(char *str, t_flag_format flags)
 	if (flags.left == 1)
 		count += ft_print_string(str, flags);
 	if (flags.precision >= 0)
-		count += ft_padding_bonus(flags.width, flags.precision, 0);
+		count += ft_pad_bonus(flags.width, flags.precision, 0);
 	else
-		count += ft_padding_bonus(flags.width, ft_strlen(str), 0);
+		count += ft_pad_bonus(flags.width, ft_strlen(str), 0);
 	if (flags.left == 0)
 		count += ft_print_string(str, flags);
 	return (count);
@@ -108,9 +108,9 @@ int	ft_print_str_flags_bonus(char *str, t_flag_format flags)
 	if (flags.left == 1)
 		count += ft_print_string(str, flags);
 	if (flags.precision >= 0)
-		count += ft_padding_bonus(flags.width, flags.precision, 0);
+		count += ft_pad_bonus(flags.width, flags.precision, 0);
 	else
-		count += ft_padding_bonus(flags.width, ft_strlen(str), 0);
+		count += ft_pad_bonus(flags.width, ft_strlen(str), 0);
 	if (flags.left == 0)
 		count += ft_print_string(str, flags);
 	return (count);

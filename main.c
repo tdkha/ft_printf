@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:13:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/13 23:29:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 09:04:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int	main(void)
 	printf("--------------------------\n");
 	printf("Comparing\n");
 	printf("--------------------------\n");
-	ft_printf("[%7i]\n", -14);
+	int count1 = ft_printf("[%8.5i]\n",42);
+	printf("Count 1: %d\n", count1);
 	printf("--------------------------\n");
-	printf("[%7i]\n", -14);
+	int count2 = printf("[%8.5i]\n", 42);
+	printf("Count 2: %d\n", count2);
 	printf("--------------------------\n");
 	//printf("[%.0s]\n", ptr);
 }

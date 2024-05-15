@@ -31,7 +31,7 @@ SRC_BONUS_FILES	=	./ft_print_char_bonus.c \
 					./ft_flag_width_star_bonus.c \
 					./ft_isflag_bonus.c \
 					./ft_isspecifier_bonus.c \
-					./ft_padding_bonus.c \
+					./ft_pad_bonus.c \
 					./ft_print_char_flags_bonus.c \
 					./ft_print_format_bonus.c \
 					./ft_printf_bonus.c \

@@ -29,13 +29,14 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_flag_width_digit_bonus.c \
 					./ft_flag_width_star_bonus.c \
 					./ft_isprintformat_bonus.c \
-					./ft_padding_bonus.c \
+					./ft_pad_bonus.c \
 					./ft_print_char_flags_bonus.c \
 					./ft_print_format_bonus.c \
 					./ft_printf_bonus.c \
 					./ft_print_char.c \
 					./ft_print_str.c \
 					./ft_print_num_base.c \
+					./ft_process_num_base_bonus.c \
 					./ft_print_str_flags_bonus.c \
 					./ft_print_ptr_flags_bonus.c \
 					./ft_print_num_base_bonus.c \

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_padding_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_pad_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 15:56:15 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/12 14:42:26 by ktieu            ###   ########.fr       */
+/*   Created: 2024/05/14 11:42:50 by ktieu             #+#    #+#             */
+/*   Updated: 2024/05/14 11:52:33 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_padding_bonus(int max_width, int len, int has_zero_pad)
+int	ft_pad_bonus(int max_width, int len, int has_zero_pad)
 {
 	int	count;
 	int	iteration;

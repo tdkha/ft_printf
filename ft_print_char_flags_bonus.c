@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:55:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/03 16:54:57 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/14 11:40:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_print_char_flags_bonus(int c, t_flag_format flags)
 			return (-1);
 		count += wrote;
 	}
-	wrote = ft_padding_bonus(flags.width, 1, flags.zero);
+	wrote = ft_pad_bonus(flags.width, 1, flags.zero);
 	if (wrote < 0)
 		return (-1);
 	count += wrote;

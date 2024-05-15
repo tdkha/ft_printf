@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/13 23:24:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 09:01:21 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,22 @@ int				ft_print_ptr_flags_bonus(unsigned long p, t_flag_format flags);
 /*								FT_PRINT_NUM_BASE.C							*/
 /*-------------------------------------------------------------------------*/
 
+int				numlen(long long n, int base);
+int				ft_process_precision(
+					long long *n,
+					int base,
+					t_flag_format *f,
+					int count);
+int				ft_process_sign(
+					long long *n,
+					int base,
+					t_flag_format *f,
+					int count);
+int 			ft_process_width(
+					long long *n,
+					int base,
+					t_flag_format *f,
+					int count);
 int				ft_print_num_base(long long n, int base, char *lst_base);
 int				ft_print_num_base_bonus
 					(
@@ -90,7 +106,7 @@ t_flag_format	ft_flag_justify_left_bonus(t_flag_format format);
 t_flag_format	ft_flag_width_star_bonus(va_list args, t_flag_format flags);
 t_flag_format	ft_flag_digit_bonus(char c, t_flag_format flags);
 t_flag_format	ft_flag_width_digit_bonus(int c, t_flag_format flags);
-int				ft_padding_bonus(int max_width, int len, int has_zero_pad);
+int				ft_pad_bonus(int max_width, int len, int has_zero_pad);
 int				ft_isdigit(int c);
 int				ft_isflag_bonus(int c);
 int				ft_isspecifier_bonus(int c);

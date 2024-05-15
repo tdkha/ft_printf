@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 10:04:46 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/12 17:26:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/14 11:40:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	ft_print_ptr_flags_bonus(unsigned long ptr, t_flag_format flags)
 		flags.width -= 2;
 	if (flags.left == 1)
 		len += ft_print_ptr(ptr);
-	len += ft_padding_bonus(flags.width, ft_ptr_len(ptr), 0);
+	len += ft_pad_bonus(flags.width, ft_ptr_len(ptr), 0);
 	if (flags.left == 0)
 		len += ft_print_ptr(ptr);
 	return (len);

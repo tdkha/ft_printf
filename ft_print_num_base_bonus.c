@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 21:59:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 09:03:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 12:46:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ static int	ft_pre_process(
 	int count
 	)
 {
-	if (f->sign == 0 && *n < 0)
-		f->width -= 1;
-	
-	count += ft_process_sign(n, base, f, count);
-	count += ft_process_precision(n, base, f, count);
+	count = ft_process_sign(n, base, f, count);
+	count = ft_process_precision(n, base, f, count);
 	if (f->sign == 1 && *n >= 0)
 		count += ft_check_write_return_count((int) '+');
 	return (count);

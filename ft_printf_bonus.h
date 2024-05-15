@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 09:01:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 11:33:22 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,12 @@ int				ft_print_char_flags_bonus(int c, t_flag_format flags);
 
 int				ft_print_str(char *str);
 int				ft_print_str_flags_bonus(char *str, t_flag_format flags);
+
+/*-------------------------------------------------------------------------*/
+/*							FT_PRINT_PERCENTAGE.C							*/
+/*-------------------------------------------------------------------------*/
+
+//int	ft_print_percentage_bonus(int c, t_flag_format *f);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINTF.C									*/

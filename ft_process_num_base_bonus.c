@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:57:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 09:09:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 14:05:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,20 @@ static void	ft_set_finished(long long *n, int base, t_flag_format *f)
 	f->precision = len;
 }
 
+static int	ft_pad_zero(long long *n, int base, t_flag_format *f, int has_zero)
+{
+	int	count;
+
+	count = 0;
+	if (*n < 0)
+		{
+			*n *= -1;
+			count += ft_print_char('-');
+	}
+	count += ft_pad_bonus(f->precision, numlen(*n, base), has_zero);
+	return (count);
+}
+
 int	ft_process_precision(long long *n, int base, t_flag_format *f, int count)
 {
 	if (f->precision > numlen(*n, base))
@@ -31,33 +45,26 @@ int	ft_process_precision(long long *n, int base, t_flag_format *f, int count)
 		{
 			if (f->width > f->precision)
 			{
-				count += ft_pad_bonus(f->precision, numlen(*n, base), 1);
+				count += ft_pad_zero(n, base, f, 1);
 				f->width -= f->precision - numlen(*n, base);
 			}
 			else
-				count += ft_pad_bonus(f->precision, numlen(*n, base), 1);
+				count += ft_pad_zero(n, base, f, 1);
 		}
 		else
 		{
 			if (f->width > f->precision)
 			{
-				if (f->zero == 1)
-					count += ft_pad_bonus(f->width - numlen(*n, base), numlen(*n, base), 1);
-				else
-				{
-					count+= ft_pad_bonus(f->width - f->precision + numlen(*n, base), numlen(*n, base), 0);
-					count += ft_pad_bonus(f->precision, numlen(*n, base), 1);
-				}
+				count+= ft_pad_bonus(f->width - f->precision + numlen(*n, base), numlen(*n, base), 0);
+				count += ft_pad_zero(n, base, f, 1);
 			}
 			else
-			{
-				count += ft_pad_bonus(f->precision, numlen(*n, base), 1);
-			}
+				count += ft_pad_zero(n, base, f, 1);
 			ft_set_finished(n, base, f);
 		}
 	}
 	else
-		ft_process_width(n, base, f, count);
+		count = ft_process_width(n, base, f, count);
 	return (count);
 }
 
@@ -66,15 +73,21 @@ int ft_process_width(long long *n, int base, t_flag_format *f, int count)
 	int	char_len;
 
 	char_len  = numlen(*n, base);
+	
 	if (f->left == 0 && f->width > char_len)
 	{
+		if (f->precision > 0 && char_len > f->precision)
+		{
+			f->space = 1;
+			f->zero = 0;
+		}
 		if (f->zero == 1)
 		{
-			ft_pad_bonus(f->width, char_len, 1);
+			count += ft_pad_bonus(f->width, char_len, 1);
 		}
 		else
 		{
-			ft_pad_bonus(f->width, char_len, 0);
+			count += ft_pad_bonus(f->width, char_len, 0);
 		}
 		f->width = char_len; // disable further operation
 	}
@@ -83,10 +96,15 @@ int ft_process_width(long long *n, int base, t_flag_format *f, int count)
 
 int	ft_process_sign(long long *n, int base, t_flag_format *f, int count)
 {
+	int	char_len;
+
+	char_len = numlen(*n, base);
+	if (f->sign == 0 && *n < 0)
+		f->width -= 1;
 	if (f->zero == 1)
 	{
 		f->space = 0;
-		if (*n < 0)
+		if (*n < 0 && f->precision == -1)
 		{
 			*n *= -1;
 			count += ft_print_char('-');
@@ -96,15 +114,8 @@ int	ft_process_sign(long long *n, int base, t_flag_format *f, int count)
 	}
 	else
 	{
-		if (f->width > numlen(*n, base))
+		if (f->width > char_len)
 			f->space = 1;
 	}
-	// if (f->left == 0)
-	// {
-	// 	if (f->zero == 1)
-	// 		count += ft_pad_bonus(f->width, char_len, 1);
-	// 	else if (f->space == 1)
-	// 		count += ft_pad_bonus(f->width, char_len, 0);
-	// }
 	return (count);
 }

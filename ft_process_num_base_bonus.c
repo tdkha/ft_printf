@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:57:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 09:02:49 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 09:09:26 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_process_precision(long long *n, int base, t_flag_format *f, int count)
 				else
 				{
 					count+= ft_pad_bonus(f->width - f->precision + numlen(*n, base), numlen(*n, base), 0);
-					count += ft_pad_bonus(f->precision - numlen(*n, base), numlen(*n, base), 1);
+					count += ft_pad_bonus(f->precision, numlen(*n, base), 1);
 				}
 			}
 			else

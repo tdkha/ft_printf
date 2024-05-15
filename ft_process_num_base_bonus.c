@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 17:57:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 14:05:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 15:58:37 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,17 @@ static int	ft_pad_zero(long long *n, int base, t_flag_format *f, int has_zero)
 	int	count;
 
 	count = 0;
-	if (*n < 0)
+	if (base == 10 && *n < 0)
 		{
 			*n *= -1;
 			count += ft_print_char('-');
+	}
+	if (base == 16 && f->hash == 1 && *n != 0)
+	{
+		if (f->specifier == 'x')
+			count += write(1, "0x", 2);
+		else if (f->specifier == 'X')
+			count += write(1, "0X", 2);
 	}
 	count += ft_pad_bonus(f->precision, numlen(*n, base), has_zero);
 	return (count);
@@ -73,7 +80,6 @@ int ft_process_width(long long *n, int base, t_flag_format *f, int count)
 	int	char_len;
 
 	char_len  = numlen(*n, base);
-	
 	if (f->left == 0 && f->width > char_len)
 	{
 		if (f->precision > 0 && char_len > f->precision)
@@ -81,16 +87,17 @@ int ft_process_width(long long *n, int base, t_flag_format *f, int count)
 			f->space = 1;
 			f->zero = 0;
 		}
-		if (f->zero == 1)
-		{
-			count += ft_pad_bonus(f->width, char_len, 1);
-		}
-		else
-		{
-			count += ft_pad_bonus(f->width, char_len, 0);
-		}
+		count += ft_pad_bonus(f->width, char_len, f->zero);
 		f->width = char_len; // disable further operation
 	}
+	if (base == 16 && f->hash == 1 && *n != 0)
+		{
+			count += ft_pad_bonus(f->width, char_len, f->zero);
+			if (f->specifier == 'x')
+				count += write(1, "0x", 2);
+			else if (f->specifier == 'X')
+				count += write(1, "0X", 2);
+		}
 	return (count);
 }
 
@@ -101,21 +108,19 @@ int	ft_process_sign(long long *n, int base, t_flag_format *f, int count)
 	char_len = numlen(*n, base);
 	if (f->sign == 0 && *n < 0)
 		f->width -= 1;
-	if (f->zero == 1)
+	if (base == 10)
 	{
-		f->space = 0;
-		if (*n < 0 && f->precision == -1)
+		if (f->zero == 1)
 		{
-			*n *= -1;
-			count += ft_print_char('-');
+			f->space = 0;
+			if (*n < 0 && f->precision == -1)
+			{
+				*n *= -1;
+				count += ft_print_char('-');
+			}
+			else if (*n >= 0 && f->sign == 1)
+				count += ft_print_char('+');
 		}
-		else if (*n >= 0 && f->sign == 1)
-			count += ft_print_char('+');
-	}
-	else
-	{
-		if (f->width > char_len)
-			f->space = 1;
 	}
 	return (count);
 }

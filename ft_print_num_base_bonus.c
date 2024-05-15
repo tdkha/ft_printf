@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 21:59:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 12:46:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 15:43:24 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static int	ft_pre_process(
 	int count
 	)
 {
+	if (f->hash == 1 && base == 16)
+		f->width -= 3;
 	count = ft_process_sign(n, base, f, count);
 	count = ft_process_precision(n, base, f, count);
 	if (f->sign == 1 && *n >= 0)
@@ -50,18 +52,6 @@ static int	ft_post_process(long long *n, int base, t_flag_format *flags)
 
 	count = 0;
 	len = numlen(*n, base);
-
-	// printf("-----------------------------------\n");
-	// printf("Left: %d\n", flags->left);
-	// printf("Space: %d\n", flags->space);
-	// printf("Zero: %d\n", flags->zero);
-	// printf("Sign: %d\n", flags->sign);
-	// printf("Width: %d\n", flags->width);
-	// printf("precision: %d\n", flags->precision);
-	// printf("len: %d\n", numlen(*n, base));
-	// printf("Number: %lld\n", *n);
-	// printf("-----------------------------------\n");
-
 	if (flags->width > len)
 	{
 		if (flags->zero)
@@ -93,6 +83,17 @@ int	ft_print_num_base_bonus(
 	return (count);
 }
 // printf("-----------------------------------\n");
+	// printf("Left: %d\n", flags->left);
+	// printf("Space: %d\n", flags->space);
+	// printf("Zero: %d\n", flags->zero);
+	// printf("Sign: %d\n", flags->sign);
+	// printf("Width: %d\n", flags->width);
+	// printf("precision: %d\n", flags->precision);
+	// printf("len: %d\n", numlen(*n, base));
+	// printf("Number: %lld\n", *n);
+	// printf("-----------------------------------\n");
+
+		// printf("-----------------------------------\n");
 	// printf("Left: %d\n", flags->left);
 	// printf("Space: %d\n", flags->space);
 	// printf("Zero: %d\n", flags->zero);

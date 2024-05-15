@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 21:59:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 15:43:24 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/15 16:11:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ static int	ft_pre_process(
 	int count
 	)
 {
+	if (f->width == 0 && f->precision < 0)
+	{
+		if (f->space == 1)
+			return (count + ft_print_char(' '));
+	}
 	if (f->hash == 1 && base == 16)
 		f->width -= 3;
 	count = ft_process_sign(n, base, f, count);
@@ -75,6 +80,16 @@ int	ft_print_num_base_bonus(
 	int		count;
 
 	count = 0;
+	// 		printf("-----------------------------------\n");
+	// printf("Left: %d\n", flags.left);
+	// printf("Space: %d\n", flags.space);
+	// printf("Zero: %d\n", flags.zero);
+	// printf("Sign: %d\n", flags.sign);
+	// printf("Width: %d\n", flags.width);
+	// printf("precision: %d\n", flags.precision);
+	// printf("len: %d\n", numlen(n, base));
+	// printf("Number: %lld\n", n);
+	// printf("-----------------------------------\n");
 	if (flags.precision == 0 && n == 0)
 		return (count + ft_pad_bonus(flags.width, 0, 0));
 	count += ft_pre_process(&n, base, &flags, 0);

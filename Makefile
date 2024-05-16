@@ -1,18 +1,13 @@
 #----------------------------------------------------------------------------
-#								VAR
+#								VARIABLES
 #----------------------------------------------------------------------------
 
 NAME		= libftprintf.a
-AR			= ar rcs #create library, (replace, create, sort)
+AR			= ar rcs
 RM			= rm -f
 LIB			= ranlib
 CC			= cc
 CFLAGS 		= -Wall -Wextra -Werror
-
-#----------------------------------------------------------------------------
-#								DIRECTORY
-#----------------------------------------------------------------------------
-
 HEAD			= ./includes/
 SRC_FILES		= 	./ft_print_char.c \
 					./ft_print_str.c \
@@ -35,7 +30,7 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_printf_bonus.c \
 					./ft_print_char.c \
 					./ft_print_str.c \
-					./ft_print_number.C \
+					./ft_print_number.c \
 					./ft_print_str_flags_bonus.c \
 					./ft_print_ptr_flags_bonus.c \
 					./ft_check_write_return_count.c
@@ -46,19 +41,24 @@ OBJ_BONUS_FILES	= $(SRC_BONUS_FILES:.c=.o)
 #----------------------------------------------------------------------------
 #								LIBFT
 #----------------------------------------------------------------------------
-LIBFT_DIR = ./libft/
-LIBFT = libft.a
-LIBFT_AR = $(addprefix $(LIBFT_DIR), $(LIBFT))
-#----------------------------------------------------------------------------
-#					TARGETS $(AR) $(NAME) $(OBJ_FILES) #$(LIB) $(NAME)
-#----------------------------------------------------------------------------
 
+LIBFT_DIR	= ./libft/
+LIBFT		= libft.a
+LIBFT_PATH	= $(addprefix $(LIBFT_DIR), $(LIBFT))
+
+#----------------------------------------------------------------------------
+#								TARGETS
+#----------------------------------------------------------------------------
 
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES)
+$(NAME): $(OBJ_FILES) $(LIBFT)
+	cp	$(LIBFT_PATH) $(NAME)
 	$(AR) $(NAME) $(OBJ_FILES)
 	$(LIB) $(NAME)
+
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -I $(HEAD) $< -o $@
@@ -71,12 +71,13 @@ bonus: .bonus
 	@touch .bonus
 
 clean:
-	$(RM) $(OBJ_FILES) $(OBJ_BONUS_FILES)
-	@rm -f .bonus
+	make -C $(LIBFT_DIR) clean
+	$(RM) $(OBJ_FILES)
 
 fclean: clean
+	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
 re:	fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re

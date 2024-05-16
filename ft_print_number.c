@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_number.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 10:38:28 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/16 10:44:37 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/16 18:32:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_output_format
 	int			zero;
 	int			hash;
 	int			specifier;
-	long long	value
+	long long	value;
 }	t_output_format;
 
 t_output_format output_format_init(t_flag_format *f)
@@ -59,7 +59,7 @@ int	ft_num_len(long long n, t_flag_format f)
 	return (len);
 }
 
-static int	ft_process_num_width(long long n, char *base, t_flag_format *f, t_output_format *o)
+static int	ft_process_num_width(long long n, t_flag_format *f, t_output_format *o)
 {
 	int	count;
 	int	num_len;
@@ -76,7 +76,7 @@ static int	ft_process_num_width(long long n, char *base, t_flag_format *f, t_out
 	return (count);
 }
 
-static int ft_process_num_precision(long long n, char *base, t_flag_format *f, t_output_format *o)
+static int ft_process_num_precision(long long n, t_flag_format *f, t_output_format *o)
 {
 	int	count;
 	int	num_len;
@@ -96,7 +96,7 @@ static int ft_process_num_precision(long long n, char *base, t_flag_format *f, t
 	return (count);
 }
 
-static int ft_process_number(long long n, char *base, t_flag_format *f, t_output_format *o)
+static int ft_process_number(long long n, t_flag_format *f, t_output_format *o)
 {
 	int	count;
 	
@@ -105,8 +105,8 @@ static int ft_process_number(long long n, char *base, t_flag_format *f, t_output
 	{
 		f->width -= 3;
 	}
-	count += ft_process_num_precision(n, base, f, o);
-	count += ft_process_num_width(n, base, f, o);
+	count += ft_process_num_precision(n, f, o);
+	count += ft_process_num_width(n, f, o);
 	
 	return (count);
 }
@@ -115,13 +115,20 @@ int	ft_print_output_num(long n, t_output_format *o, t_flag_format *f)
 {
 	int	len;
 	int	num_len;
-	int	prefix;
 
+	len = 0;
 	num_len = ft_num_len(n, *f);
-	prefix = 0;
+
 	if (o->specifier)
 	len += (o->sign + o->zero + o->space + num_len);
-	
+	printf("---------------------------------\n");
+	printf("Sign: %d\n", o->sign);
+	printf("Left: %d\n", o->left);
+	printf("Space: %d\n", o->space);
+	printf("Zero: %d\n", o->zero);
+	printf("Hash: %d\n", o->hash);
+	printf("Specifier:: %d\n", o->specifier);
+	printf("---------------------------------\n");
 	return (len);
 }
 
@@ -129,15 +136,18 @@ int	ft_build_number_output(long long n, char *base, t_flag_format *f)
 {
 	t_output_format	output;
 	int				count;
-	char			*str;
 
+	base = base;
+
+	
 	output = output_format_init(f);
 	count = 0;
+	
 	if (f->precision == 0 && n == 0)
 		output.zero = f->width;
 	else
 	{
-		count += ft_process_number(n, base, f, &output);
+		count += ft_process_number(n, f, &output);
 	}
 	count += ft_print_output_num(n, &output, f);
 	return (count);
@@ -145,23 +155,26 @@ int	ft_build_number_output(long long n, char *base, t_flag_format *f)
 
 int	ft_print_number(long long n, t_flag_format *f)
 {
+	int 		count;
 	static char	*base_ten;
 	static char	*base_hex;
 	static char	*base_hex_upper;
 	
+	count = 0;
 	base_ten = "0123456789";
 	base_hex = "0123456789abcde";
 	base_hex_upper = "0123456789ABCDE";
 	if (f->specifier == 'd' || f->specifier == 'i' || f->specifier == 'u')
 	{
-		ft_build_number_output(n, base_ten, f);
+		count += ft_build_number_output(n, base_ten, f);
 	}
 	else if (f->specifier == 'x')
 	{
-		ft_build_number_output(n, base_hex, f);
+		count += ft_build_number_output(n, base_hex, f);
 	}
 	else if (f->specifier == 'X')
 	{
-		ft_build_number_output(n, base_hex_upper, f);
+		count += ft_build_number_output(n, base_hex_upper, f);
 	}
+	return (count);
 }

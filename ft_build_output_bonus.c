@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 07:50:52 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/16 09:23:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/16 10:25:57 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,23 @@ int	ft_num_len(long long n, t_flag_format f)
 	return (len);
 }
 
+static int	ft_process_num_width(long long n, char *base, t_flag_format *f, t_output_format *o)
+{
+	int	count;
+	int	num_len;
+
+	count = 0;
+	num_len = ft_num_len(n, *f);
+	if (f->width > num_len)
+	{
+		if (f->zero == 1)
+			o->zero = f->width - num_len;
+		else
+			o->space = f->width - num_len;
+	}
+	return (count);
+}
+
 static int ft_process_num_precision(long long n, char *base, t_flag_format *f, t_output_format *o)
 {
 	int	count;
@@ -67,27 +84,36 @@ static int ft_process_num_precision(long long n, char *base, t_flag_format *f, t
 
 	count = 0;
 	num_len =  ft_num_len(n, *f);
-	if (f->left == 1)
-	{
-		
-	}
 	if (f->precision > num_len)
 	{
 		if (f->zero == 1)
 			f->zero = 0;
-		f->precision - num_len;
-		
+		if (f->precision >= f->width)
+			f->width = num_len;
+		else
+			f->width = (f->width - f->precision) + num_len;
+		o->zero = f->precision - num_len;
 	}
 	return (count);
 }
 
-static int	ft_process_num_width(long long n, char *base, t_flag_format *f, t_output_format *o)
+static int ft_process_number(long long n, char *base, t_flag_format *f, t_output_format *o)
 {
 	int	count;
-
-	count = 0;
 	
-		
+	count = 0;
+	if (f->left == 1)
+		o->left = 1;
+	if (f->sign == 1)
+		o->sign == 1;
+	if (f->hash == 1)
+	{
+		f->width -= 3;
+		o->hash = 1;
+	}
+	count += ft_process_num_precision(n, base, f, o);
+	count += ft_process_num_width(n, base, f, o);
+	
 	return (count);
 }
 
@@ -96,7 +122,7 @@ void	ft_print_output_num(t_flag_format *f)
 	
 }
 
-int	ft_process_number(long long n, char *base, t_flag_format *f)
+int	ft_build_number_output(long long n, char *base, t_flag_format *f)
 {
 	t_output_format	output;
 	int				count;
@@ -104,7 +130,7 @@ int	ft_process_number(long long n, char *base, t_flag_format *f)
 
 	output = output_format_init(n);
 	count = 0;
-	str = ft_process_num_precision(n, base, f, &output);
+	count += ft_process_number(n, base, f, &output);
 	if (f->precision == 0 && n == 0)
 		count += 0;
 	else
@@ -112,7 +138,7 @@ int	ft_process_number(long long n, char *base, t_flag_format *f)
 	return (count);
 }
 
-int	ft_build_number_output(long long n, t_flag_format *f)
+int	ft_print_number(long long n, t_flag_format *f)
 {
 	static char	*base_ten;
 	static char	*base_hex;
@@ -123,14 +149,14 @@ int	ft_build_number_output(long long n, t_flag_format *f)
 	base_hex_upper = "0123456789ABCDE";
 	if (f->specifier == 'd' || f->specifier == 'i' || f->specifier == 'u')
 	{
-		ft_process_number(n, base_ten, f);
+		ft_build_number_output(n, base_ten, f);
 	}
 	else if (f->specifier == 'x')
 	{
-		ft_process_number(n, base_hex, f);
+		ft_build_number_output(n, base_hex, f);
 	}
 	else if (f->specifier == 'X')
 	{
-		ft_process_number(n, base_hex_upper, f);
+		ft_build_number_output(n, base_hex_upper, f);
 	}
 }

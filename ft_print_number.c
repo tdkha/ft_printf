@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_build_output_bonus.c                            :+:      :+:    :+:   */
+/*   ft_print_number.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 07:50:52 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/16 10:25:57 by ktieu            ###   ########.fr       */
+/*   Created: 2024/05/16 10:38:28 by ktieu             #+#    #+#             */
+/*   Updated: 2024/05/16 10:44:37 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ typedef struct s_output_format
 	long long	value
 }	t_output_format;
 
-t_output_format output_format_init(long long value)
+t_output_format output_format_init(t_flag_format *f)
 {
 	t_output_format	output;
 
-	output.sign = 0;
-	output.left = 0;
+	output.sign = f->sign;
+	output.left = f->left;
 	output.space = 0;
 	output.zero = 0;
-	output.hash = 0;
-	output.specifier = 0;
-	output.value = 0;
+	output.hash = f->hash;
+	output.specifier = f->specifier;
 	return (output);
 }
 
@@ -102,14 +101,9 @@ static int ft_process_number(long long n, char *base, t_flag_format *f, t_output
 	int	count;
 	
 	count = 0;
-	if (f->left == 1)
-		o->left = 1;
-	if (f->sign == 1)
-		o->sign == 1;
 	if (f->hash == 1)
 	{
 		f->width -= 3;
-		o->hash = 1;
 	}
 	count += ft_process_num_precision(n, base, f, o);
 	count += ft_process_num_width(n, base, f, o);
@@ -117,9 +111,18 @@ static int ft_process_number(long long n, char *base, t_flag_format *f, t_output
 	return (count);
 }
 
-void	ft_print_output_num(t_flag_format *f)
+int	ft_print_output_num(long n, t_output_format *o, t_flag_format *f)
 {
+	int	len;
+	int	num_len;
+	int	prefix;
+
+	num_len = ft_num_len(n, *f);
+	prefix = 0;
+	if (o->specifier)
+	len += (o->sign + o->zero + o->space + num_len);
 	
+	return (len);
 }
 
 int	ft_build_number_output(long long n, char *base, t_flag_format *f)
@@ -128,13 +131,15 @@ int	ft_build_number_output(long long n, char *base, t_flag_format *f)
 	int				count;
 	char			*str;
 
-	output = output_format_init(n);
+	output = output_format_init(f);
 	count = 0;
-	count += ft_process_number(n, base, f, &output);
 	if (f->precision == 0 && n == 0)
-		count += 0;
+		output.zero = f->width;
 	else
-		count += 100;
+	{
+		count += ft_process_number(n, base, f, &output);
+	}
+	count += ft_print_output_num(n, &output, f);
 	return (count);
 }
 

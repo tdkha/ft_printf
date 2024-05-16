@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 11:33:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/16 10:38:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,10 @@ typedef struct s_flag_format
 int				ft_print_ptr_flags_bonus(unsigned long p, t_flag_format flags);
 
 /*-------------------------------------------------------------------------*/
-/*								FT_PRINT_NUM_BASE.C							*/
+/*								FT_PRINT_NUMBER.C							*/
 /*-------------------------------------------------------------------------*/
 
-int				numlen(long long n, int base);
-int				ft_process_precision(
-					long long *n,
-					int base,
-					t_flag_format *f,
-					int count);
-int				ft_process_sign(
-					long long *n,
-					int base,
-					t_flag_format *f,
-					int count);
-int 			ft_process_width(
-					long long *n,
-					int base,
-					t_flag_format *f,
-					int count);
-int				ft_print_num_base(long long n, int base, char *lst_base);
-int				ft_print_num_base_bonus
-					(
-					long long n,
-					int base,
-					char *lst_base,
-					t_flag_format flags
-					);
+int				ft_print_number(long long n, t_flag_format *f);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_CHAR.C								*/

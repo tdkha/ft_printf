@@ -5,100 +5,145 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/12 21:59:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/15 12:46:40 by ktieu            ###   ########.fr       */
+/*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
+/*   Updated: 2024/05/17 14:16:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-int	numlen(long long n, int base)
-{
-	int	len;
-
-	len = 0;
-	if (n < 0)
-		n *= -1;
-	if (n == 0)
-		return (1);
-	while (n > 0)
-	{
-		n /= base;
-		len++;
-	}
-	return (len);
-}
-
-static int	ft_pre_process(
-	long long *n,
-	int base,
+static int	ft_process_num_width(
+	long long n,
 	t_flag_format *f,
-	int count
-	)
-{
-	count = ft_process_sign(n, base, f, count);
-	count = ft_process_precision(n, base, f, count);
-	if (f->sign == 1 && *n >= 0)
-		count += ft_check_write_return_count((int) '+');
-	return (count);
-}
-
-static int	ft_post_process(long long *n, int base, t_flag_format *flags)
+	t_output_format *o)
 {
 	int	count;
-	int	len;
+	int	num_len;
 
 	count = 0;
-	len = numlen(*n, base);
-
-	// printf("-----------------------------------\n");
-	// printf("Left: %d\n", flags->left);
-	// printf("Space: %d\n", flags->space);
-	// printf("Zero: %d\n", flags->zero);
-	// printf("Sign: %d\n", flags->sign);
-	// printf("Width: %d\n", flags->width);
-	// printf("precision: %d\n", flags->precision);
-	// printf("len: %d\n", numlen(*n, base));
-	// printf("Number: %lld\n", *n);
-	// printf("-----------------------------------\n");
-
-	if (flags->width > len)
+	num_len = ft_num_len_flag(n, *f);
+	if (f->width > num_len)
 	{
-		if (flags->zero)
+		if (f->zero == 1)
 		{
-			count += ft_pad_bonus(flags->width, numlen(*n, base), 1);
+			if (f->left == 1)
+				o->right_zeros = f->width - num_len;
+			else
+				o->left_zeros = f->width - num_len;
 		}
 		else
 		{
-			count += ft_pad_bonus(flags->width, numlen(*n, base), 0);
+			if (f->left == 1)
+				o->right_spaces = f->width - num_len;
+			else
+				o->left_spaces = f->width - num_len;
 		}
 	}
 	return (count);
 }
 
-int	ft_print_num_base_bonus(
+static int	ft_process_num_precision(
 	long long n,
-	int base,
-	char *lst_base,
-	t_flag_format flags)
+	t_flag_format *f,
+	t_output_format *o)
 {
-	int		count;
+	int	count;
+	int	num_len;
 
 	count = 0;
-	if (flags.precision == 0 && n == 0)
-		return (count + ft_pad_bonus(flags.width, 0, 0));
-	count += ft_pre_process(&n, base, &flags, 0);
-	count += ft_print_num_base(n, base, lst_base);
-	count += ft_post_process(&n, base, &flags);
+	num_len = ft_num_len_flag(n, *f);
+	if (f->precision > num_len)
+	{
+		if (f->zero == 1)
+			f->zero = 0;
+		if (f->precision >= f->width)
+			f->width = num_len;
+		else
+			f->width = (f->width - f->precision) + num_len;
+		o->left_zeros = f->precision - num_len;
+	}
 	return (count);
 }
-// printf("-----------------------------------\n");
-	// printf("Left: %d\n", flags->left);
-	// printf("Space: %d\n", flags->space);
-	// printf("Zero: %d\n", flags->zero);
-	// printf("Sign: %d\n", flags->sign);
-	// printf("Width: %d\n", flags->width);
-	// printf("precision: %d\n", flags->precision);
-	// printf("len: %d\n", numlen(*n, base));
-	// printf("Number: %lld\n", *n);
-	// printf("-----------------------------------\n");
+
+static int	ft_process_number(
+	long long n,
+	t_flag_format *f,
+	t_output_format *o)
+{
+	int	count;
+
+	count = 0;
+	if (f->hash == 1)
+	{
+		f->width -= 3;
+	}
+	if (n < 0 && f->sign == 0)
+		f->width--;
+	count += ft_process_num_precision(n, f, o);
+	count += ft_process_num_width(n, f, o);
+	// printf("---------------------------------\n");
+	// printf("Sign: %d\n", o->sign);
+	// printf("Left: %d\n", o->left);
+	// printf("Hash: %d\n", o->hash);
+	// printf("Left Space: %d\n", o->left_spaces);
+	// printf("Right Space: %d\n", o->right_spaces);
+	// printf("Left Zero: %d\n", o->left_zeros);
+	// printf("Right Zero: %d\n", o->right_zeros);
+	// printf("Specifier:: %c\n", o->specifier);
+	// printf("---------------------------------\n");
+	return (count);
+}
+
+int	ft_build_number_output(long long n, char *base, t_flag_format *f)
+{
+	t_output_format	output;
+	int				count;
+
+	output = output_format_init(f);
+	count = 0;
+	if (f->precision == 0 && n == 0)
+		output.left_zeros = f->width;
+	else
+	{
+		count += ft_process_number(n, f, &output);
+	}
+	count += ft_print_output_num(n, &output, f, base);
+	return (count);
+}
+
+int	ft_print_num_base_bonus(long long n, t_flag_format *f)
+{
+	int			count;
+	static char	*base_ten;
+	static char	*base_hex;
+	static char	*base_hex_upper;
+
+	count = 0;
+	base_ten = "0123456789";
+	base_hex = "0123456789abcdef";
+	base_hex_upper = "0123456789ABCDEF";
+	if (f->specifier == 'd' || f->specifier == 'i' || f->specifier == 'u')
+	{
+		count += ft_build_number_output(n, base_ten, f);
+	}
+	else if (f->specifier == 'x')
+	{
+		count += ft_build_number_output(n, base_hex, f);
+	}
+	else if (f->specifier == 'X')
+	{
+		count += ft_build_number_output(n, base_hex_upper, f);
+	}
+	return (count);
+}
+
+// printf("---------------------------------\n");
+	// printf("Sign: %d\n", o->sign);
+	// printf("Left: %d\n", o->left);
+	// printf("Hash: %d\n", o->hash);
+	// printf("Left Space: %d\n", o->left_spaces);
+	// printf("Right Space: %d\n", o->right_spaces);
+	// printf("Left Zero: %d\n", o->left_zeros);
+	// printf("Right Zero: %d\n", o->right_zeros);
+	// printf("Specifier:: %c\n", o->specifier);
+	// printf("---------------------------------\n");

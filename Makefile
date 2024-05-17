@@ -30,11 +30,12 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_printf_bonus.c \
 					./ft_print_char.c \
 					./ft_print_str.c \
-					./ft_print_number.c \
+					./ft_num_len_bonus.c \
+					./ft_print_num_base_bonus.c \
 					./ft_print_str_flags_bonus.c \
 					./ft_print_ptr_flags_bonus.c \
-					./ft_check_write_return_count.c
-
+					./ft_check_write_return_count.c \
+					./ft_output_format_bonus.c 
 OBJ_FILES		= $(SRC_FILES:.c=.o)
 OBJ_BONUS_FILES	= $(SRC_BONUS_FILES:.c=.o)
 
@@ -65,15 +66,15 @@ $(LIBFT):
 
 bonus: .bonus
 
-.bonus: $(OBJ_BONUS_FILES)
+.bonus: $(LIBFT) $(OBJ_BONUS_FILES) 
+	cp	$(LIBFT_PATH) $(NAME)
 	$(AR) $(NAME) $(OBJ_BONUS_FILES)
 	$(LIB) $(NAME)
 	@touch .bonus
 
-clean:
+clean: 
 	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJ_FILES)  $(OBJ_BONUS_FILES)
-	@rm .bonus
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean

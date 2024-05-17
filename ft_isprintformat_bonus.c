@@ -6,20 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:31:16 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/06 11:40:44 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/17 11:11:17 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-	{
-		return (1);
-	}
-	return (0);
-}
 
 int	ft_isspecifier_bonus(int c)
 {

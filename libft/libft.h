@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/04/24 10:35:53 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/17 09:41:41 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_atoi(const char *str);
 char	*ft_itoa(int n);
+char	*ft_ltoa(long n);
+char	*ft_lltoa(long long n);
 
 /*-------------------------------------------------------------------------*/
 /*						DYNAMIC MEMORY ALLOCATION							*/

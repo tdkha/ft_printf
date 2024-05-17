@@ -6,23 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:22:58 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/14 11:40:12 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/17 10:04:15 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
-
-static size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
 
 int	ft_print_s_pre(const char *str, int precision)
 {

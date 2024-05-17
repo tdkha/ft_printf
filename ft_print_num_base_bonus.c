@@ -6,22 +6,20 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 14:16:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:05:21 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
 static int	ft_process_num_width(
-	long long n,
+	int num_len,
 	t_flag_format *f,
 	t_output_format *o)
 {
 	int	count;
-	int	num_len;
 
 	count = 0;
-	num_len = ft_num_len_flag(n, *f);
 	if (f->width > num_len)
 	{
 		if (f->zero == 1)
@@ -71,26 +69,25 @@ static int	ft_process_number(
 	t_output_format *o)
 {
 	int	count;
+	int	num_len;
 
 	count = 0;
+	num_len = ft_num_len_flag(n, *f);
 	if (f->hash == 1)
 	{
-		f->width -= 3;
+		f->width -= 2;
 	}
 	if (n < 0 && f->sign == 0)
 		f->width--;
 	count += ft_process_num_precision(n, f, o);
-	count += ft_process_num_width(n, f, o);
-	// printf("---------------------------------\n");
-	// printf("Sign: %d\n", o->sign);
-	// printf("Left: %d\n", o->left);
-	// printf("Hash: %d\n", o->hash);
-	// printf("Left Space: %d\n", o->left_spaces);
-	// printf("Right Space: %d\n", o->right_spaces);
-	// printf("Left Zero: %d\n", o->left_zeros);
-	// printf("Right Zero: %d\n", o->right_zeros);
-	// printf("Specifier:: %c\n", o->specifier);
-	// printf("---------------------------------\n");
+	count += ft_process_num_width(num_len, f, o);
+	if (f->width == 0)
+	{
+		if (f->zero == 1)
+			o->left_zeros += 1;
+		else if (f->space == 1)
+			o->left_spaces += 1;
+	}
 	return (count);
 }
 

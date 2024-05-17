@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 09:57:31 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 14:48:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/17 15:28:06 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,34 @@ static char	*num_to_str(
 	return (str);
 }
 
+
+static int	ft_printf_padding(char *str, int i, int padding, int is_zero)
+{
+	if (is_zero)
+	{
+		while (padding-- > 0)
+		str[i++] = '0';
+	}
+	else
+	{
+		while (padding-- > 0)
+			str[i++] = ' ';
+	}
+	return (i);
+}
+
+static int	ft_print_prefix_Ox(long long n, char *str, int i, t_output_format *o)
+{
+	if (o->hash == 1 && n != 0)
+	{
+		str[i++] = '0';
+		if (o->specifier == 'x')
+			str[i++] = 'x';
+		else if (o->specifier == 'X')
+			str[i++] = 'X';
+	}
+	return (i);
+}
 static void	ft_print_output_num_extent(
 				long long n,
 				t_output_format *o,
@@ -63,26 +91,24 @@ static void	ft_print_output_num_extent(
 				char *base)
 {
 	int		i;
-	size_t	base_len;
 	int		num_len;
 	
 	i = 0;
-	base_len = ft_strlen(base);
-	num_len = ft_num_len_base(n, base_len);
-	while (o->left_spaces-- > 0)
-		str[i++] = ' ';
+	num_len = ft_num_len_base(n, ft_strlen(base));
+	i += ft_printf_padding(str, i, o->left_spaces, 0);
 	if (o->left_zeros == 1 && o->sign == 1 && n < 0)
+	{
 		str[i++] = '-';
+		n *= -1;
+	}
 	else if (o->left_zeros == 1 && o->sign == 1 && n >= 0)
 		str[i++] = '+';
-	while (o->left_zeros-- > 0)
-		str[i++] = '0';
+	i = ft_print_prefix_Ox(n, str, i, o);
+	i = ft_printf_padding(str, i, o->left_zeros, 1);
 	num_to_str(n, base, str, i + num_len - 1);
 	i += num_len;
-	while (o->right_zeros-- > 0)
-		str[i++] = '0';
-	while (o->right_spaces-- > 0)
-		str[i++] = ' ';
+	i = ft_printf_padding(str, i, o->right_zeros, 1);
+	i = ft_printf_padding(str, i, o->right_spaces, 0);
 	str[i] = '\0';
 	write(1, str, i);
 }
@@ -100,6 +126,8 @@ int	ft_print_output_num(
 	len += (o->sign + ft_num_len_flag(n, *f));
 	if (n < 0 && o->sign == 0)
 		len++;
+	if (o->hash == 1 && n != 0)
+		len += 2;
 	str = (char *) malloc (sizeof(char) * (len + 1));
 	if (!str)
 		return (0);

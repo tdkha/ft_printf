@@ -6,7 +6,7 @@
 /*   By: ktieu <kha.tieu@student.hive.fi>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:13:40 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/16 18:31:19 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/16 23:46:41 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	main(void)
 	printf("\n");
 	printf("Count 1: %d\n", count1);
 	printf("--------------------------\n");
-	//int count2 = printf("[%08.3i]", 8473);
-	//printf("\n");
-	//printf("Count 2: %d\n", count2);
+	int count2 = printf("[%010d]", 8473);
+	printf("\n");
+	printf("Count 2: %d\n", count2);
 	printf("--------------------------\n");
 	//printf("[%.0s]\n", ptr);
 }

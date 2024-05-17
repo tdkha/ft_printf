@@ -72,7 +72,8 @@ bonus: .bonus
 
 clean:
 	make -C $(LIBFT_DIR) clean
-	$(RM) $(OBJ_FILES)
+	$(RM) $(OBJ_FILES)  $(OBJ_BONUS_FILES)
+	@rm .bonus
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean

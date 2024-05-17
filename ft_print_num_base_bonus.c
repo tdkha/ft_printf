@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 16:05:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/17 16:25:17 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,7 @@ static int	ft_process_number(
 	count += ft_process_num_width(num_len, f, o);
 	if (f->width == 0)
 	{
-		if (f->zero == 1)
-			o->left_zeros += 1;
-		else if (f->space == 1)
+		if (f->space == 1)
 			o->left_spaces += 1;
 	}
 	return (count);

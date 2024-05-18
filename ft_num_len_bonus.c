@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 13:50:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/18 16:23:53 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int	ft_num_len_flag(long long n, t_flag_format f)
 	else if (f.specifier == 'x' || f.specifier == 'X' || f.specifier == 'p')
 		base = 16;
 	if (n < 0)
+	{
 		n *= -1;
+	}
 	if (n == 0)
 		return (1);
 	while (n > 0)
@@ -41,7 +43,9 @@ int	ft_num_len_base(long long n, int base)
 
 	len = 0;
 	if (n < 0)
+	{
 		n *= -1;
+	}
 	if (n == 0)
 		return (1);
 	while (n > 0)

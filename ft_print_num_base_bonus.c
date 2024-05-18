@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 16:25:17 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/18 19:48:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	ft_process_num_width(
 				o->left_spaces = f->width - num_len;
 		}
 	}
+	if (f->width == 0 && f->space == 1)
+		o->left_spaces = 1;
 	return (count);
 }
 
@@ -46,19 +48,27 @@ static int	ft_process_num_precision(
 	t_output_format *o)
 {
 	int	count;
-	int	num_len;
+	int	ft_num_len;
 
 	count = 0;
-	num_len = ft_num_len_flag(n, *f);
-	if (f->precision > num_len)
+	ft_num_len = ft_num_len_flag(n, *f);
+	if (f->precision > ft_num_len)
 	{
 		if (f->zero == 1)
 			f->zero = 0;
 		if (f->precision >= f->width)
-			f->width = num_len;
+			f->width = ft_num_len;
 		else
-			f->width = (f->width - f->precision) + num_len;
-		o->left_zeros = f->precision - num_len;
+			f->width = (f->width - f->precision) + ft_num_len;
+		o->left_zeros = f->precision - ft_num_len;
+	}
+	else
+	{
+		if (f->precision > 0 && f->precision < f->width)
+		{
+			f->zero = 0;
+			f->space = 1;
+		}
 	}
 	return (count);
 }
@@ -77,15 +87,10 @@ static int	ft_process_number(
 	{
 		f->width -= 2;
 	}
-	if (n < 0 && f->sign == 0)
-		f->width--;
 	count += ft_process_num_precision(n, f, o);
+	if (n < 0 || f->sign == 1)
+		f->width--;
 	count += ft_process_num_width(num_len, f, o);
-	if (f->width == 0)
-	{
-		if (f->space == 1)
-			o->left_spaces += 1;
-	}
 	return (count);
 }
 
@@ -97,7 +102,7 @@ int	ft_build_number_output(long long n, char *base, t_flag_format *f)
 	output = output_format_init(f);
 	count = 0;
 	if (f->precision == 0 && n == 0)
-		output.left_zeros = f->width;
+		return (count);
 	else
 	{
 		count += ft_process_number(n, f, &output);

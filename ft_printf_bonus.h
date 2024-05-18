@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 13:50:54 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/18 12:41:09 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,12 @@
 # include <stdarg.h>
 # include <limits.h>
 # include <stdio.h>
-# include "libft/libft.h"
 
-# define PTR_NULL "0x0"
+# if defined (__linux__)
+#  define PTR_NULL "(nil)"
+# elif defined (__APPLE__)
+#  define PTR_NULL "0x0"
+# endif
 
 typedef struct s_flag_format
 {
@@ -47,6 +50,13 @@ typedef struct s_output_format
 	int			right_spaces;
 	int			specifier;
 }	t_output_format;
+
+/*-------------------------------------------------------------------------*/
+/*	LIBFT	*/
+/*-------------------------------------------------------------------------*/
+
+char			*ft_lltoa(long long n);
+size_t			ft_strlen(const char *str);
 
 /*-------------------------------------------------------------------------*/
 /*	FT_PRINT_PTR.C	*/

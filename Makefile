@@ -9,6 +9,8 @@ LIB			= ranlib
 CC			= cc
 CFLAGS 		= -Wall -Wextra -Werror
 HEAD			= ./includes/
+LIBFT_FILES		=	./ft_strlen.c \
+					./ft_lltoa.c 
 SRC_FILES		= 	./ft_print_char.c \
 					./ft_print_str.c \
 					./ft_print_ptr.c \
@@ -38,46 +40,40 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_output_format_bonus.c 
 OBJ_FILES		= $(SRC_FILES:.c=.o)
 OBJ_BONUS_FILES	= $(SRC_BONUS_FILES:.c=.o)
+OBJ_LIBFT_FILES	= $(LIBFT_FILES:.c=.o)
 
 #----------------------------------------------------------------------------
 #								LIBFT
 #----------------------------------------------------------------------------
 
-LIBFT_DIR	= ./libft/
-LIBFT		= libft.a
-LIBFT_PATH	= $(addprefix $(LIBFT_DIR), $(LIBFT))
+LIBFT_PATH		=	./libft
+LIBFT			=	$(LIBFT_PATH)/libft.a
 
 #----------------------------------------------------------------------------
 #								TARGETS
 #----------------------------------------------------------------------------
 
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
 all: $(NAME)
 
-$(NAME): $(OBJ_FILES) $(LIBFT)
-	cp	$(LIBFT_PATH) $(NAME)
+$(NAME): $ $(OBJ_FILES)
 	$(AR) $(NAME) $(OBJ_FILES)
 	$(LIB) $(NAME)
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c -I $(HEAD) $< -o $@
-
 bonus: .bonus
 
-.bonus: $(LIBFT) $(OBJ_BONUS_FILES) 
-	cp	$(LIBFT_PATH) $(NAME)
-	$(AR) $(NAME) $(OBJ_BONUS_FILES)
-	$(LIB) $(NAME)
+.bonus:  $(OBJ_BONUS_FILES) $(OBJ_LIBFT_FILES)
+	$(AR) $(NAME) $(OBJ_BONUS_FILES) $(OBJ_LIBFT_FILES)
 	@touch .bonus
 
-clean: 
-	make -C $(LIBFT_DIR) clean
-	$(RM) $(OBJ_FILES)  $(OBJ_BONUS_FILES)
+clean:
+	$(RM) $(OBJ_FILES)  $(OBJ_BONUS_FILES) $(OBJ_LIBFT_FILES)
+	@rm -f .bonus
 
 fclean: clean
-	make -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
 re:	fclean all

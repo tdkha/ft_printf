@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ltoa.c                                          :+:      :+:    :+:   */
+/*   ft_lltoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 09:39:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/17 09:41:26 by ktieu            ###   ########.fr       */
+/*   Created: 2024/05/17 09:41:17 by ktieu             #+#    #+#             */
+/*   Updated: 2024/05/18 12:37:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf_bonus.h"
 
 static size_t	ft_count_digits(int n)
 {
@@ -27,7 +27,7 @@ static size_t	ft_count_digits(int n)
 	return (len);
 }
 
-char	*ft_ltoa(long n)
+char	*ft_lltoa(long long n)
 {
 	char		*res;
 	size_t		len;

@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 15:48:17 by ktieu             #+#    #+#             */
-/*   Updated: 2024/04/20 16:09:58 by ktieu            ###   ########.fr       */
+/*   Created: 2024/04/16 15:12:26 by ktieu             #+#    #+#             */
+/*   Updated: 2024/05/18 12:38:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf_bonus.h"
 
-void	ft_putnbr_fd(int n, int fd)
+size_t	ft_strlen(const char *str)
 {
-	long	num;
-	char	c;
+	size_t	i;
 
-	if (n < 0)
+	i = 0;
+	while (str[i] != '\0')
 	{
-		ft_putchar_fd('-', fd);
-		num = (long)n * (-1);
+		i++;
 	}
-	else
-		num = n;
-	if (num > 9)
-	{
-		ft_putnbr_fd(num / 10, fd);
-		ft_putnbr_fd(num % 10, fd);
-	}
-	else
-	{
-		c = num + '0';
-		ft_putchar_fd(c, fd);
-	}
+	return (i);
 }

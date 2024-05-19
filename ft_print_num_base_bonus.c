@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/18 19:48:31 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/19 19:13:53 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,23 @@ static int	ft_process_num_precision(
 	t_output_format *o)
 {
 	int	count;
-	int	ft_num_len;
+	int	num_len;
 
 	count = 0;
-	ft_num_len = ft_num_len_flag(n, *f);
-	if (f->precision > ft_num_len)
+	num_len = ft_num_len_flag(n, *f);
+	if (f->precision > num_len)
 	{
 		if (f->zero == 1)
 			f->zero = 0;
 		if (f->precision >= f->width)
-			f->width = ft_num_len;
+			f->width = num_len;
 		else
-			f->width = (f->width - f->precision) + ft_num_len;
-		o->left_zeros = f->precision - ft_num_len;
+			f->width = (f->width - f->precision) + num_len;
+		o->left_zeros = f->precision - num_len;
 	}
 	else
 	{
-		if (f->precision > 0 && f->precision < f->width)
+		if (f->precision >= 0 && f->precision < f->width)
 		{
 			f->zero = 0;
 			f->space = 1;
@@ -94,19 +94,14 @@ static int	ft_process_number(
 	return (count);
 }
 
-int	ft_build_number_output(long long n, char *base, t_flag_format *f)
+int	ft_process_print_num_base(long long n, char *base, t_flag_format *f)
 {
 	t_output_format	output;
 	int				count;
 
 	output = output_format_init(f);
 	count = 0;
-	if (f->precision == 0 && n == 0)
-		return (count);
-	else
-	{
-		count += ft_process_number(n, f, &output);
-	}
+	count += ft_process_number(n, f, &output);
 	count += ft_print_output_num(n, &output, f, base);
 	return (count);
 }
@@ -124,15 +119,15 @@ int	ft_print_num_base_bonus(long long n, t_flag_format *f)
 	base_hex_upper = "0123456789ABCDEF";
 	if (f->specifier == 'd' || f->specifier == 'i' || f->specifier == 'u')
 	{
-		count += ft_build_number_output(n, base_ten, f);
+		count += ft_process_print_num_base(n, base_ten, f);
 	}
 	else if (f->specifier == 'x')
 	{
-		count += ft_build_number_output(n, base_hex, f);
+		count += ft_process_print_num_base(n, base_hex, f);
 	}
 	else if (f->specifier == 'X')
 	{
-		count += ft_build_number_output(n, base_hex_upper, f);
+		count += ft_process_print_num_base(n, base_hex_upper, f);
 	}
 	return (count);
 }

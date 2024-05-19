@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/18 12:41:09 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/19 19:05:35 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_output_format
 	int			left_spaces;
 	int			right_spaces;
 	int			specifier;
+	int			no_value;
 }	t_output_format;
 
 /*-------------------------------------------------------------------------*/
@@ -69,7 +70,7 @@ int				ft_print_ptr_flags_bonus(unsigned long p, t_flag_format flags);
 /*-------------------------------------------------------------------------*/
 
 int				ft_num_len_flag(long long n, t_flag_format f);
-int				ft_num_len_base(long long n, int base);
+int				ft_num_len_base_output(long long n, int base, t_output_format o);
 
 /*-------------------------------------------------------------------------*/
 /*	FT_PRINT_NUM_BASE.C	*/
@@ -129,6 +130,16 @@ int				ft_flag_precision_bonus(const char *str, int index,
 /*-------------------------------------------------------------------------*/
 
 t_output_format	output_format_init(t_flag_format *f);
+int				ft_printf_padding_output(
+					char *str,
+					int i,
+					int *padding,
+					int is_zero);
+int				ft_print_prefix_0x_output(
+					long long n,
+					char *str,
+					int i,
+					t_output_format *o);
 int				ft_print_output_num(
 					long long n,
 					t_output_format *o,

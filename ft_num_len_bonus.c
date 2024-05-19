@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/18 16:23:53 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/19 19:14:34 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	ft_num_len_flag(long long n, t_flag_format f)
 
 	len = 0;
 	base = 10;
+	if (n == 0 && f.precision == 0)
+		return (0);
 	if (f.specifier == 'd' || f.specifier == 'i' || f.specifier == 'u')
 		base = 10;
 	else if (f.specifier == 'x' || f.specifier == 'X' || f.specifier == 'p')
@@ -37,11 +39,13 @@ int	ft_num_len_flag(long long n, t_flag_format f)
 	return (len);
 }
 
-int	ft_num_len_base(long long n, int base)
+int	ft_num_len_base_output(long long n, int base, t_output_format o)
 {
 	int	len;
 
 	len = 0;
+	if (o.no_value == 1)
+		return (0);
 	if (n < 0)
 	{
 		n *= -1;

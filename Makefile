@@ -37,7 +37,8 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_print_str_flags_bonus.c \
 					./ft_print_ptr_flags_bonus.c \
 					./ft_check_write_return_count.c \
-					./ft_output_format_bonus.c 
+					./ft_output_format_bonus.c \
+					./ft_output_number_bonus.c 
 OBJ_FILES		= $(SRC_FILES:.c=.o)
 OBJ_BONUS_FILES	= $(SRC_BONUS_FILES:.c=.o)
 OBJ_LIBFT_FILES	= $(LIBFT_FILES:.c=.o)

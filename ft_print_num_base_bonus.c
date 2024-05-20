@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/19 19:13:53 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:07:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	ft_process_print_num_base(long long n, char *base, t_flag_format *f)
 	t_output_format	output;
 	int				count;
 
-	output = output_format_init(f);
+	output = ft_output_format_init(f);
 	count = 0;
 	count += ft_process_number(n, f, &output);
 	count += ft_print_output_num(n, &output, f, base);

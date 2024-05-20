@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 09:57:31 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/19 19:06:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:20:27 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*	STRUCT	*/
 /*-------------------------------------------------------------------------*/
 
-t_output_format	output_format_init(t_flag_format *f)
+t_output_format	ft_output_format_init(t_flag_format *f)
 {
 	t_output_format	output;
 
@@ -32,7 +32,7 @@ t_output_format	output_format_init(t_flag_format *f)
 	return (output);
 }
 
-int	ft_printf_padding_output(
+int	ft_print_padding_output(
 	char *str,
 	int i,
 	int *padding,
@@ -70,6 +70,11 @@ int	ft_print_prefix_0x_output(
 			str[i++] = 'x';
 		else if (o->specifier == 'X')
 			str[i++] = 'X';
+	}
+	if (o->specifier == 'p')
+	{
+		str[i++] = '0';
+		str[i++] = 'x';
 	}
 	return (i);
 }

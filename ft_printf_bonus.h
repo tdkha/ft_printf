@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 15:16:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:39:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int				ft_print_output_num(
 					char *base);
 int				ft_print_output_ptr(
 					unsigned long ptr,
-					size_t num_len,
+					int num_len,
 					t_output_format *o);
 
 #endif

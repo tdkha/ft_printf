@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:03:56 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 15:05:02 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:33:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_print_format_bonus(t_flag_format f, va_list ap)
 	else if (specifier == 'x' || specifier == 'X')
 		return (ft_print_num_base_bonus(va_arg(ap, unsigned int), &f));
 	else if (specifier == '%')
-		return (write(1, "%", 1));
+		return (ft_print_char_flags_bonus('%', f));
 	else
 		return (-1);
 }

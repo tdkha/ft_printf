@@ -6,23 +6,18 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:33:02 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 15:23:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/20 16:10:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
 void	ft_process_ptr(
-	unsigned long ptr,
 	int num_len,
 	t_flag_format *f,
 	t_output_format *o
 )
 {
-	if (!ptr)
-		f->width -= ft_strlen(PTR_NULL);
-	else
-		f->width -= 2;
 	if (f->zero == 1)
 	{
 		f->zero = 0;
@@ -35,9 +30,9 @@ void	ft_process_ptr(
 	if (f->width > num_len)
 	{
 		if (f->left == 1)
-			o->right_spaces = f->width - num_len;
+			o->right_spaces = f->width - (num_len);
 		else
-			o->left_spaces = f->width - num_len;
+			o->left_spaces = f->width - (num_len);
 	}
 }
 
@@ -52,7 +47,7 @@ int	ft_process_print_ptr(
 
 	len = 0;
 	o = ft_output_format_init(f);
-	ft_process_ptr(ptr, num_len, f, &o);
+	ft_process_ptr(num_len, f, &o);
 	len = ft_print_output_ptr(ptr, num_len, &o);
 	return (len);
 }

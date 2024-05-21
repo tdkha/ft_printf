@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:33:02 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 16:10:49 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/21 09:17:36 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-void	ft_process_ptr(
+static void	ft_process_ptr(
 	int num_len,
 	t_flag_format *f,
 	t_output_format *o
@@ -36,7 +36,7 @@ void	ft_process_ptr(
 	}
 }
 
-int	ft_process_print_ptr(
+static int	ft_process_print_ptr(
 	unsigned long ptr,
 	int num_len,
 	t_flag_format *f

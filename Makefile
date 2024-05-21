@@ -34,11 +34,11 @@ SRC_BONUS_FILES	=	./ft_flag_digit_bonus.c \
 					./ft_print_str.c \
 					./ft_num_len_bonus.c \
 					./ft_print_num_base_bonus.c \
-					./ft_print_str_flags_bonus.c \
 					./ft_print_ptr_bonus.c \
 					./ft_check_write_return_count.c \
 					./ft_output_format_bonus.c \
 					./ft_output_number_bonus.c \
+					./ft_output_str_bonus.c \
 					./ft_output_ptr_bonus.c \
 					./ft_print_str_bonus.c
 OBJ_FILES		= $(SRC_FILES:.c=.o)

@@ -6,42 +6,48 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:26:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/21 09:19:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/21 15:15:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
 
-void	ft_process_str(
-	int num_len,
-	t_flag_format *f,
-	t_output_format *o
-)
+static void	ft_process_str(int *str_len, t_flag_format *f, t_output_format *o)
 {
-
+	if (f->precision >= 0 && f->precision < *str_len)
+		*str_len = f->precision;
+	if (f->width > *str_len)
+	{
+		if (f->left == 1)
+			o->right_spaces = f->width - *str_len;
+		else
+			o->left_spaces = f->width - *str_len;
+	}
 }
 
-int	ft_process_print_str(
-	char *str,
-	int num_len,
-	t_flag_format *f
-	)
+static int	ft_process_print_str(char *str, int str_len, t_flag_format *f)
 {
 	int				len;
 	t_output_format	o;
 
 	len = 0;
 	o = ft_output_format_init(f);
-
+	ft_process_str(&str_len, f, &o);
+	len = ft_print_output_str(str, str_len, &o);
 	return (len);
 }
 
-int	ft_print_str_bonus(char *str, t_flag_format flags)
-{
+int	ft_print_str_bonus(char *str, t_flag_format flags) {
 	int	len;
-	int	num_len;
+	int	str_len;
 
-	len = 0;
-
+	if (str == NULL)
+	{
+		str = "(null)";
+		str_len = 6;
+	}
+	else
+		str_len = (int)ft_strlen(str);
+	len = ft_process_print_str(str, str_len, &flags);
 	return (len);
 }

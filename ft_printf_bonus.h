@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 15:39:16 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/21 14:27:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int				ft_print_char_flags_bonus(int c, t_flag_format flags);
 
 int				ft_print_str(char *str);
 int				ft_print_str_flags_bonus(char *str, t_flag_format flags);
-
+int				ft_print_str_bonus(char *str, t_flag_format flags);
 /*-------------------------------------------------------------------------*/
 /*	FT_PRINTF.C	*/
 /*-------------------------------------------------------------------------*/
@@ -150,5 +150,8 @@ int				ft_print_output_ptr(
 					unsigned long ptr,
 					int num_len,
 					t_output_format *o);
-
+int				ft_print_output_str(
+					char *str,
+					int str_len,
+					t_output_format *o);
 #endif

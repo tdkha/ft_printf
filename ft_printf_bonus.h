@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/22 12:58:45 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 14:22:29 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include <limits.h>
 
 typedef struct s_flag_format
 {
@@ -108,11 +107,6 @@ t_flag_format	ft_flag_width_star_bonus(va_list args, t_flag_format flags);
 t_flag_format	ft_flag_digit_bonus(char c, t_flag_format flags);
 t_flag_format	ft_flag_width_digit_bonus(int c, t_flag_format flags);
 
-/*-------------------------------------------------------------------------*/
-/*	PADDING	*/
-/*-------------------------------------------------------------------------*/
-int				ft_pad_bonus(int max_width, int len, int has_zero_pad);
-/*-------------------------------------------------------------------------*/
 /*	FLAG TYPES	*/
 /*-------------------------------------------------------------------------*/
 int				ft_isdigit(int c);

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 16:35:00 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 08:52:33 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,6 @@ int	ft_ptr_len_flag(unsigned long n)
 
 	len = 0;
 	base = 16;
-	if (n < 0)
-	{
-		n *= -1;
-	}
 	if (n == 0)
 		return (ft_strlen(PTR_NULL));
 	while (n > 0)

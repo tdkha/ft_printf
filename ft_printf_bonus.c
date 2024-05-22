@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:59:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/12 17:24:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 13:51:09 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_parse_flags(const char *str, va_list ap,
 	t_flag_format *flags, int i)
 {
-	while (str[++i] && ft_isprintformat_bonus(str[i]))
+	while (str[++i] && ft_isprintformat(str[i]))
 	{
 		if (str[i] == '-')
 			*flags = ft_flag_justify_left_bonus(*flags);
@@ -42,28 +42,30 @@ static int	ft_parse_flags(const char *str, va_list ap,
 	return (i);
 }
 
-static int	ft_parse_format(const char *format, va_list ap)
+static int	ft_parse_format(const char *format, va_list ap, int count, int i)
 {
-	int				i;
-	t_flag_format	flag_format;
-	int				count;
+	t_flag_format	flag;
+	int				wrote;
 
-	i = -1;
-	count = 0;
 	while (format[++i] != '\0')
 	{
-		flag_format = ft_flag_init_bonus();
+		flag = ft_flag_init_bonus();
+		wrote = 0;
 		if (format[i] == '%' && format[i + 1] != '\0')
 		{
-			i = ft_parse_flags(format, ap, &flag_format, i);
-			if (format[i] && flag_format.specifier > 0
-				&& ft_isprintformat_bonus(format[i]))
-				count += ft_print_format_bonus(flag_format, ap);
+			i = ft_parse_flags(format, ap, &flag, i);
+			if (format[i] && flag.specifier > 0 && ft_isprintformat(format[i]))
+				wrote = ft_print_format_bonus(flag, ap);
 			else if (format[i] != '\0')
-				count += ft_print_char_flags_bonus(format[i], flag_format);
+				wrote = ft_print_char_bonus(format[i], flag);
 		}
 		else
-			count += ft_print_char(format[i]);
+		{
+			wrote = ft_print_char(format[i]);
+		}
+		if (wrote == -1)
+			return (-1);
+		count += wrote;
 	}
 	return (count);
 }
@@ -72,17 +74,14 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		count;
+	int		i;
 
 	if (!format || !*format)
 		return (0);
 	va_start(ap, format);
-	count = ft_parse_format(format, ap);
+	i = -1;
+	count = 0;
+	count = ft_parse_format(format, ap, count, i);
 	va_end(ap);
 	return (count);
 }
-
-// printf("--------------FLAGS--------------\n");
-	// printf("Specifier: %d\n", flags->specifier);
-	// printf("Left justiry: %d\n", flags->left);
-	// printf("With: %d\n", flags->width);
-	// printf("--------------FLAGS--------------\n");

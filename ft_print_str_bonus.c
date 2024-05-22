@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 15:26:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/21 15:15:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 13:29:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,13 @@ static int	ft_process_print_str(char *str, int str_len, t_flag_format *f)
 	o = ft_output_format_init(f);
 	ft_process_str(&str_len, f, &o);
 	len = ft_print_output_str(str, str_len, &o);
+	if (len == -1)
+		return (-1);
 	return (len);
 }
 
-int	ft_print_str_bonus(char *str, t_flag_format flags) {
+int	ft_print_str_bonus(char *str, t_flag_format flags)
+{
 	int	len;
 	int	str_len;
 
@@ -49,5 +52,7 @@ int	ft_print_str_bonus(char *str, t_flag_format flags) {
 	else
 		str_len = (int)ft_strlen(str);
 	len = ft_process_print_str(str, str_len, &flags);
+	if (len == -1)
+		return (-1);
 	return (len);
 }

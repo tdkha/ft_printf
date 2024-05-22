@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:28:24 by ktieu             #+#    #+#             */
-/*   Updated: 2024/04/29 14:26:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 12:14:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_print_str(char *str)
 		return (write(1, "(null)", 6));
 	while (*str)
 	{
-		wrote = ft_check_write_return_count((int)*str);
+		wrote = ft_print_char((int)*str);
 		if (wrote < 0)
 			return (-1);
 		count++;

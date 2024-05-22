@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:03:56 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/21 13:44:13 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 12:36:34 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_print_format_bonus(t_flag_format f, va_list ap)
 
 	specifier = f.specifier;
 	if (specifier == 'c')
-		return (ft_print_char_flags_bonus(va_arg(ap, int), f));
+		return (ft_print_char_bonus(va_arg(ap, int), f));
 	else if (specifier == 's')
 		return (ft_print_str_bonus(va_arg(ap, char *), f));
 	else if (specifier == 'p')
@@ -30,7 +30,7 @@ int	ft_print_format_bonus(t_flag_format f, va_list ap)
 	else if (specifier == 'x' || specifier == 'X')
 		return (ft_print_num_base_bonus(va_arg(ap, unsigned int), &f));
 	else if (specifier == '%')
-		return (ft_print_char_flags_bonus('%', f));
+		return (ft_print_char_bonus('%', f));
 	else
 		return (-1);
 }

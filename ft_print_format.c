@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:37:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/03 16:05:30 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 12:14:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_parse_format_specifier(char specifier, va_list ap,
 	char *lower_base, char *upper_base)
 {
 	if (specifier == 'c')
-		return (ft_check_write_return_count(va_arg(ap, int)));
+		return (ft_print_char(va_arg(ap, int)));
 	else if (specifier == 's')
 		return (ft_print_str(va_arg(ap, char *)));
 	else if (specifier == 'p')
@@ -30,7 +30,7 @@ static int	ft_parse_format_specifier(char specifier, va_list ap,
 	else if (specifier == 'X')
 		return (ft_print_num_base(va_arg(ap, unsigned int), 16, upper_base));
 	else if (specifier == '%')
-		return (ft_check_write_return_count(specifier));
+		return (ft_print_char(specifier));
 	else
 		return (-1);
 }

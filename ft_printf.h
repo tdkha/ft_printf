@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:24:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/11 09:56:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 12:14:50 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <limits.h>
-# include <stdio.h> 
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_PTR.C								*/
@@ -48,7 +47,7 @@ int	ft_print_str(char *str);
 /*-------------------------------------------------------------------------*/
 
 int	ft_print_format(char specifier, va_list ap);
-int	ft_check_write_return_count(int c);
+int	ft_print_char(int c);
 int	ft_printf(const char *format, ...);
 
 #endif

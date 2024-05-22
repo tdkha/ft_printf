@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:31:16 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/18 12:43:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 12:34:23 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_isflag_bonus(int c)
 	return (0);
 }
 
-int	ft_isprintformat_bonus(int c)
+int	ft_isprintformat(int c)
 {
 	return (ft_isspecifier_bonus(c) || ft_isflag_bonus(c) || ft_isdigit(c));
 }

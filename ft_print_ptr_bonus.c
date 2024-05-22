@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:33:02 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/21 09:17:36 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 13:33:36 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static int	ft_process_print_ptr(
 	o = ft_output_format_init(f);
 	ft_process_ptr(num_len, f, &o);
 	len = ft_print_output_ptr(ptr, num_len, &o);
+	if (len == -1)
+		return (-1);
 	return (len);
 }
 
@@ -60,5 +62,7 @@ int	ft_print_ptr_bonus(unsigned long ptr, t_flag_format flags)
 	len = 0;
 	num_len = ft_ptr_len_flag(ptr);
 	len = ft_process_print_ptr(ptr, num_len, &flags);
+	if (len == -1)
+		return (-1);
 	return (len);
 }

@@ -6,34 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/21 13:05:09 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 13:39:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_bonus.h"
-
-static void	ft_process_sign(
-	long long n,
-	t_flag_format *f,
-	t_output_format *o
-)
-{
-	if (f->hash == 1 && n != 0)
-	{
-		f->width -= 2;
-	}
-	if (f->space == 1)
-	{
-		
-		if (f->sign == 1 || n < 0)
-			f->space = 0;
-		else
-		{
-			o->left_spaces = 1;
-			f->width--;
-		}
-	}
-}
 
 static void	ft_process_num_width(
 	int num_len,
@@ -57,8 +34,6 @@ static void	ft_process_num_width(
 				o->left_spaces += f->width - num_len;
 		}
 	}
-	if (f->width == 0 && f->space == 1)
-		o->left_spaces = 1;
 }
 
 static void	ft_process_num_precision(
@@ -91,22 +66,34 @@ static void	ft_process_num_precision(
 	}
 }
 
-static int	ft_process_number(
+static void	ft_process_number(
 	long long n,
 	t_flag_format *f,
 	t_output_format *o)
 {
-	int	count;
 	int	num_len;
 
-	count = 0;
 	num_len = ft_num_len_flag(n, *f);
-	ft_process_sign(n, f, o);
+	if (f->hash == 1 && n != 0)
+	{
+		f->width -= 2;
+	}
+	if (f->space == 1)
+	{
+		if (f->sign == 1 || n < 0)
+			f->space = 0;
+		else
+		{
+			o->left_spaces = 1;
+			f->width--;
+		}
+	}
 	ft_process_num_precision(n, f, o);
+	if (f->width <= 0 && f->space == 1)
+		o->left_spaces = 1;
 	if (n < 0 || f->sign == 1)
 		f->width--;
 	ft_process_num_width(num_len, f, o);
-	return (count);
 }
 
 int	ft_process_print_num_base(long long n, char *base, t_flag_format *f)
@@ -116,8 +103,8 @@ int	ft_process_print_num_base(long long n, char *base, t_flag_format *f)
 
 	output = ft_output_format_init(f);
 	count = 0;
-	count += ft_process_number(n, f, &output);
-	count += ft_print_output_num(n, &output, f, base);
+	ft_process_number(n, f, &output);
+	count = ft_print_output_num(n, &output, f, base);
 	return (count);
 }
 

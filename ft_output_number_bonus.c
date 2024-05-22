@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:01:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 15:10:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/22 13:49:40 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	ft_print_sign_output(
 	return (i);
 }
 
-static void	ft_print_output_num_extent(
+static int	ft_print_output_num_extent(
 				long long n,
 				t_output_format *o,
 				char	*str,
@@ -89,7 +89,9 @@ static void	ft_print_output_num_extent(
 	i = ft_print_padding_output(str, i, &o->right_zeros, 1);
 	i = ft_print_padding_output(str, i, &o->right_spaces, 0);
 	str[i] = '\0';
-	write(1, str, i);
+	if (write(1, str, i) != i)
+		return (-1);
+	return (1);
 }
 
 int	ft_print_output_num(
@@ -111,14 +113,13 @@ int	ft_print_output_num(
 	{
 		str = (char *) malloc (sizeof(char) * (len + 1));
 		if (!str)
-			return (0);
-		ft_print_output_num_extent(n, o, str, base);
+			return (-1);
+		if (ft_print_output_num_extent(n, o, str, base) == -1)
+		{
+			free(str);
+			return (-1);
+		}
 		free(str);
 	}
 	return (len);
 }
-// printf("Sign: %d\n", o->sign);
-	// printf("Left zero: %d\n", o->left_zeros);
-	// printf("Left space:: %d\n", o->left_spaces);
-	// printf("Right zero: %d\n", o->right_zeros);
-	// printf("Right space:: %d\n", o->right_spaces);

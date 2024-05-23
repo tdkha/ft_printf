@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:34:18 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/22 13:39:49 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/23 10:42:06 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,14 +133,3 @@ int	ft_print_num_base_bonus(long long n, t_flag_format *f)
 	}
 	return (count);
 }
-
-// printf("---------------------------------\n");
-	// printf("Sign: %d\n", o->sign);
-	// printf("Left: %d\n", o->left);
-	// printf("Hash: %d\n", o->hash);
-	// printf("Left Space: %d\n", o->left_spaces);
-	// printf("Right Space: %d\n", o->right_spaces);
-	// printf("Left Zero: %d\n", o->left_zeros);
-	// printf("Right Zero: %d\n", o->right_zeros);
-	// printf("Specifier:: %c\n", o->specifier);
-	// printf("---------------------------------\n");

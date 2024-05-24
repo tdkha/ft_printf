@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 09:16:39 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/22 13:31:32 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/24 15:16:10 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	ft_str_to_str(char *str, char *res, int str_len, int index)
 	int	i;
 
 	i = 0;
+	
 	if (str_len == 0)
 		return (index);
 	while (i < str_len)
@@ -35,7 +36,7 @@ int	ft_print_output_str(char *str, int str_len, t_output_format *o)
 	int		i;
 
 	i = 0;
-	malloc_len = o->left_spaces + o->right_spaces + str_len;
+	malloc_len = o->left_spaces + o->right_spaces + str_len;;
 	res = (char *) malloc(sizeof(char) * (malloc_len + 1));
 	if (!res)
 		return (-1);

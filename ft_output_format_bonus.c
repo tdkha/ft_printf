@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 09:57:31 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/20 15:20:27 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/24 11:19:29 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,21 @@ int	ft_print_prefix_0x_output(
 	int i,
 	t_output_format *o)
 {
-	if (o->hash == 1 && n != 0)
-	{
-		str[i++] = '0';
-		if (o->specifier == 'x')
-			str[i++] = 'x';
-		else if (o->specifier == 'X')
-			str[i++] = 'X';
-	}
 	if (o->specifier == 'p')
 	{
 		str[i++] = '0';
 		str[i++] = 'x';
+	}
+	else if (o->specifier == 'x' || o->specifier == 'X')
+	{
+		if (o->hash == 1 && n != 0)
+		{
+			str[i++] = '0';
+			if (o->specifier == 'x')
+				str[i++] = 'x';
+			else if (o->specifier == 'X')
+				str[i++] = 'X';
+		}
 	}
 	return (i);
 }

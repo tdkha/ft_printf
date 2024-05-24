@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 11:35:34 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/23 10:41:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/24 13:48:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include <stdio.h>
 
 typedef struct s_flag_format
 {
@@ -67,7 +68,7 @@ int				ft_num_len_flag(long long n, t_flag_format f);
 int				ft_num_len_base_output(
 					long long n, int base,
 					t_output_format o);
-int				ft_ptr_len_flag(unsigned long n);
+int				ft_ptr_len_flag(unsigned long n, t_flag_format *f);
 
 /*-------------------------------------------------------------------------*/
 /*	FT_PRINT_NUM_BASE.C	*/
@@ -137,7 +138,7 @@ int				ft_print_output_num(
 					t_flag_format *f,
 					char *base);
 int				ft_print_output_ptr(
-					unsigned long ptr,
+					unsigned long ptr, 
 					int num_len,
 					t_output_format *o);
 int				ft_print_output_str(

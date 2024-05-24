@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:45:23 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/22 12:54:03 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/24 13:47:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_num_len_base_output(long long n, int base, t_output_format o)
 
 #ifdef __APPLE__
 
-int	ft_ptr_len_flag(unsigned long n)
+int	ft_ptr_len_flag(unsigned long n, t_flag_format *f)
 {
 	char	*ptr_null;
 	int		len;
@@ -72,7 +72,12 @@ int	ft_ptr_len_flag(unsigned long n)
 	len = 0;
 	base = 16;
 	if (n == 0)
-		return (ft_strlen(ptr_null));
+	{
+		if (f->precision == 0)
+			return (ft_strlen("0x"));
+		else
+			return (ft_strlen(ptr_null));
+	}
 	while (n > 0)
 	{
 		n /= base;

@@ -19,13 +19,15 @@ static int	ft_output_print_char(int c, t_output_format *o)
 	int		i;
 
 	i = 0;
-	len = o->left_spaces + 1 + o->right_spaces;
+	len = o->left_spaces + o->left_zeros + 1 + o->right_spaces + o->right_zeros;
 	str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (-1);
 	i = ft_print_padding_output(str, i, &o->left_spaces, 0);
+	i = ft_print_padding_output(str, i, &o->left_zeros, 1);
 	str[i++] = (char)c;
 	i = ft_print_padding_output(str, i, &o->right_spaces, 0);
+	i = ft_print_padding_output(str, i, &o->right_zeros, 1);
 	str[i] = '\0';
 	if (write(1, str, i) != i)
 	{
@@ -40,10 +42,20 @@ static void	ft_process_char(t_flag_format *f, t_output_format *o)
 {
 	if (f->width > 1)
 	{
-		if (f->left == 1)
-			o->right_spaces = f->width - 1;
+		if (f->zero == 1)
+		{
+			if (f->left == 1)
+				o->right_zeros = f->width - 1;
+			else
+				o->left_zeros = f->width - 1;
+		}
 		else
-			o->left_spaces = f->width - 1;
+		{
+			if (f->left == 1)
+				o->right_spaces = f->width - 1;
+			else
+				o->left_spaces = f->width - 1;
+		}
 	}
 }
 

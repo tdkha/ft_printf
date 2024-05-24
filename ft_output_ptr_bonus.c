@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 14:07:37 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/22 13:35:55 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/24 14:11:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,43 @@ static char	*ft_address_to_str(
 	return (str);
 }
 
-int	ft_print_output_ptr(unsigned long ptr, int num_len, t_output_format *o)
+static int	ft_print_zero_and_space(
+	char *str,
+	int i,
+	int	*space,
+	int *zeros
+)
+{
+	i = ft_print_padding_output(str, i, zeros, 1);
+	i = ft_print_padding_output(str, i, space, 0);
+	return (i);
+}
+
+int	ft_print_output_ptr(
+	unsigned long ptr, 
+	int num_len,
+	t_output_format *o)
 {
 	int		i;
 	int		str_len;
 	char	*str;
 
-	str_len = o->left_spaces + o->right_spaces + num_len;
+	str_len = o->left_zeros + o->left_spaces + o->right_spaces + o->right_zeros + num_len;
 	str = (char *) malloc (sizeof(char) * (str_len + 1));
 	if (str == NULL)
 		return (-1);
 	i = 0;
-	i = ft_print_padding_output(str, i, &o->left_spaces, 0);
+	i = ft_print_padding_output(str, i, &o->left_spaces, 1);
 	if (!ptr)
 		i = ft_print_nullptr(str, i);
 	else
 	{
 		i = ft_print_prefix_0x_output(ptr, str, i, o);
+		i = ft_print_padding_output(str, i, &o->left_zeros, 1);
 		ft_address_to_str(ptr, str, (i - 1) + (num_len - ft_strlen("0x")));
 		i += num_len - ft_strlen("0x");
 	}
-	i = ft_print_padding_output(str, i, &o->right_spaces, 0);
+	i = ft_print_zero_and_space(str, i, &o->right_spaces, &o->right_zeros);
 	str[i] = '\0';
 	if (write(1, str, str_len) != str_len)
 		return (free(str), -1);

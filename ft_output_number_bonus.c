@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 19:01:11 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/22 13:49:40 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/05/24 12:39:01 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,17 @@ static int	ft_print_output_num_extent(
 
 	i = 0;
 	num_len = ft_num_len_base_output(n, ft_strlen(base), *o);
-	i += ft_print_padding_output(str, i, &o->left_spaces, 0);
+	i = ft_print_padding_output(str, i, &o->left_spaces, 0);
 	i = ft_print_sign_output(&n, str, i, o);
 	i = ft_print_prefix_0x_output(n, str, i, o);
 	i = ft_print_padding_output(str, i, &o->left_zeros, 1);
 	i = ft_print_sign_output(&n, str, i, o);
 	if (o->no_value != 1)
 	{
-		num_to_str(n, base, str, ((i - 1) + num_len));
+		if (num_len == 1)
+			str[i] = str[i] = base[n % ft_strlen(base)];
+		else
+			num_to_str(n, base, str, ((i - 1) + num_len));
 		i += num_len;
 	}
 	i = ft_print_padding_output(str, i, &o->right_zeros, 1);
